@@ -8,17 +8,38 @@ Planning a multi-city vacation is often a chaotic mess of scattered spreadsheets
 
 ## ✨ Features
 
-- 🔐 **User Authentication**: Secure signup and login flow with JWT and bcrypt.
-- 🏠 **Travel Dashboard**: A central hub to view and manage all your upcoming and past trips.
-- ✈️ **Trip Creation**: Plan a new trip by setting destinations, travel dates, and adding a custom cover photo.
-- 🗺️ **Smart Itinerary Builder**: Search for cities and build a day-by-day visual timeline of your stops.
-- 🎢 **Activity Discovery**: Browse a curated catalog of activities for each city and schedule them into your itinerary.
-- 📅 **Itinerary View**: A beautiful, structured timeline displaying your cities, dates, and scheduled activities.
-- 💰 **Dynamic Budget Breakdown**: Track your estimated and actual costs. Visualized with interactive Pie and Bar charts across categories like Transport, Stay, Meals, and Activities.
-- 🎒 **Packing Checklist**: A comprehensive checklist where you can add, categorize, and mark items as packed.
-- 📝 **Trip Notes & Journaling**: A dedicated space to jot down flight details, reservation codes, or personal journal entries.
-- 🌍 **Public Itinerary Sharing**: Generate a clean, read-only version of your trip to safely share with friends or family without giving edit access.
-- 👤 **User Profile**: Manage your account settings or permanently delete your account and associated data.
+### 🔐 **Secure User Authentication**
+A robust, token-based authentication system using JSON Web Tokens (JWT). User passwords are cryptographically hashed via `bcrypt` to ensure maximum security. Users cannot access any trip data without a valid session, keeping personal travel plans completely private.
+
+### 🏠 **Centralized Travel Dashboard**
+The main landing hub where users can see all their upcoming, ongoing, and past trips at a glance. It provides a clean, grid-based overview with beautiful cover photos, travel dates, and quick actions to manage each vacation.
+
+### ✈️ **Intuitive Trip Creation**
+Starting a new journey is effortless. Users can initialize a trip by giving it a custom title, writing a short description or goal, selecting their entire travel date range, and uploading a personalized cover photo to set the mood for the vacation.
+
+### 🗺️ **Smart Itinerary Builder**
+The core engine of Traveloop. Users can dynamically search through a database of cities and add them as "stops" to their trip. The builder automatically organizes these stops into a visual timeline, ensuring users know exactly where they are going and when.
+
+### 🎢 **Activity Discovery & Scheduling**
+Instead of blindly researching what to do in a new city, Traveloop offers a curated catalog of activities. Users can browse popular attractions, view average costs and durations, and instantly map them to a specific day and time on their itinerary.
+
+### 📅 **Structured Itinerary View**
+A pristine, read-only visualization of the entire planned trip. It groups activities by city and day, displaying scheduled times, expected costs, and durations in an easy-to-read, chronological format—perfect for referencing on the go.
+
+### 💰 **Dynamic Budget & Cost Management**
+A powerful financial tool that prevents overspending. Users can allocate their budget across five major categories: Transport, Stay, Meals, Activities, and Miscellaneous. The breakdown is instantly visualized using interactive, responsive Pie and Bar charts (powered by `Chart.js`), allowing travelers to see exactly where their money is going.
+
+### 🎒 **Categorized Packing Checklist**
+A fully functional CRUD (Create, Read, Update, Delete) packing manager. Users can add specific items, assign them to logical categories (like "Electronics" or "Clothing"), and check them off as they pack. This ensures no passport or phone charger is ever left behind.
+
+### 📝 **Trip Notes & Journaling**
+A built-in digital notepad tied specifically to each individual trip. Travelers can use this to securely store important booking reference numbers, jot down daily journal entries, or paste links to local restaurant recommendations without cluttering their phone's main notes app.
+
+### 🌍 **Public Itinerary Sharing**
+Planning a group trip or want to show off your vacation to family? Traveloop can generate a secure, unique public URL for any trip. This link provides a beautiful, read-only summary of the itinerary that anyone can view without needing an account, while keeping your private budget and notes hidden.
+
+### 👤 **Comprehensive User Profile**
+A dedicated settings area where users can manage their personal information. If a user decides they no longer want to use the platform, they have access to a "Danger Zone" where they can permanently and safely delete their account and wipe all associated travel data from the database.
 
 ---
 
