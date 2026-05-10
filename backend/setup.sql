@@ -1,1 +1,116 @@
+-- PROFILES
+CREATE TABLE IF NOT EXISTS profiles (
+  id VARCHAR(100) PRIMARY KEY,
+  name VARCHAR(255),
+  email VARCHAR(255) UNIQUE,
+  password_hash VARCHAR(255),
+  avatar_url TEXT,
+  language VARCHAR(10) DEFAULT 'en',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- CITIES
+CREATE TABLE IF NOT EXISTS cities (
+  id VARCHAR(20) PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  country VARCHAR(255) NOT NULL,
+  region VARCHAR(255),
+  cost_index VARCHAR(20),
+  popularity INT DEFAULT 0,
+  description TEXT,
+  image_url TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- ACTIVITY CATALOG
+CREATE TABLE IF NOT EXISTS activity_catalog (
+  id VARCHAR(20) PRIMARY KEY,
+  city_id VARCHAR(20),
+  name VARCHAR(255) NOT NULL,
+  type VARCHAR(50),
+  avg_cost DECIMAL(10,2) DEFAULT 0,
+  duration_hours DECIMAL(5,2),
+  description TEXT,
+  image_url TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (city_id) REFERENCES cities(id) ON DELETE CASCADE
+);
+
+-- TRIPS
+CREATE TABLE IF NOT EXISTS trips (
+  id VARCHAR(20) PRIMARY KEY,
+  user_id VARCHAR(100),
+  name VARCHAR(255) NOT NULL,
+  description TEXT,
+  cover_photo TEXT,
+  start_date DATE,
+  end_date DATE,
+  is_public BOOLEAN DEFAULT FALSE,
+  total_budget DECIMAL(10,2) DEFAULT 0,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES profiles(id) ON DELETE CASCADE
+);
+
+-- STOPS
+CREATE TABLE IF NOT EXISTS stops (
+  id VARCHAR(20) PRIMARY KEY,
+  trip_id VARCHAR(20),
+  city_name VARCHAR(255) NOT NULL,
+  country VARCHAR(255),
+  arrival_date DATE,
+  departure_date DATE,
+  order_index INT DEFAULT 0,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (trip_id) REFERENCES trips(id) ON DELETE CASCADE
+);
+
+-- ACTIVITIES
+CREATE TABLE IF NOT EXISTS activities (
+  id VARCHAR(20) PRIMARY KEY,
+  stop_id VARCHAR(20),
+  name VARCHAR(255) NOT NULL,
+  type VARCHAR(50),
+  cost DECIMAL(10,2) DEFAULT 0,
+  duration_hours DECIMAL(5,2),
+  description TEXT,
+  scheduled_time TIME,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (stop_id) REFERENCES stops(id) ON DELETE CASCADE
+);
+
+-- BUDGETS
+CREATE TABLE IF NOT EXISTS budgets (
+  id VARCHAR(20) PRIMARY KEY,
+  trip_id VARCHAR(20),
+  transport DECIMAL(10,2) DEFAULT 0,
+  stay DECIMAL(10,2) DEFAULT 0,
+  meals DECIMAL(10,2) DEFAULT 0,
+  activities DECIMAL(10,2) DEFAULT 0,
+  misc DECIMAL(10,2) DEFAULT 0,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (trip_id) REFERENCES trips(id) ON DELETE CASCADE
+);
+
+-- PACKING CHECKLIST
+CREATE TABLE IF NOT EXISTS packing_items (
+  id VARCHAR(20) PRIMARY KEY,
+  trip_id VARCHAR(20),
+  name VARCHAR(255) NOT NULL,
+  category VARCHAR(50),
+  is_packed BOOLEAN DEFAULT FALSE,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (trip_id) REFERENCES trips(id) ON DELETE CASCADE
+);
+
+-- NOTES
+CREATE TABLE IF NOT EXISTS notes (
+  id VARCHAR(20) PRIMARY KEY,
+  trip_id VARCHAR(20),
+  stop_id VARCHAR(20),
+  content TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (trip_id) REFERENCES trips(id) ON DELETE CASCADE,
+  FOREIGN KEY (stop_id) REFERENCES stops(id) ON DELETE SET NULL
+);
+
 
